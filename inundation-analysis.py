@@ -3,7 +3,8 @@ from arcpy import env
 from arcpy.sa import *
 
 __all__ = ['set_null_between',
-           
+           'set_null_below',
+           'set_null_above
           ]
 
 def set_null_below(inRaster, th):
