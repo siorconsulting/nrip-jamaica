@@ -2,6 +2,9 @@
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica
 
 Toolsets include: 
+- Geometric analysis
+- - Hostpot
+- - 
 - Hydrological analysis
 - Coastal inundation analysis
 - Intersection analysis
