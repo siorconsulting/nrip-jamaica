@@ -48,8 +48,9 @@ def set_null_between(inRaster, low_th, high_th):
       betweenRaster : raster
   
   """
-  
-  outRaster = SetNull(inRaster > th, inRaster)
+         
+  lowRaster = SetNull(inRaster > high_th, inRaster)
+  outRaster = SetNull(lowRaster < low_th, 1)
   
   return outRaster
 
