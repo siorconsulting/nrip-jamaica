@@ -2,13 +2,21 @@
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica
 
 Toolsets include: 
-- Geometric analysis
-- - Hostpot
-- - 
-- Hydrological analysis
-- Coastal inundation analysis
-- Intersection analysis
-- Proximity analysis
-- Hostpot (density) analysis
+- Geometric analysis toolset
+  - Hostpot (density) analysis tool 
+  - Proximity analysis tool
+  - Intersection analysis tool 
+- Hydrological analysis toolset
+  - Fill calculator
+  - Flow direction calculator
+  - Flow accumulation calculator
+  - Integrated hydrological routine
+- Coastal inundation toolset
+  - Sea level rise mapping
+  - Storm surge calculator
+- Geomorphological flood risk toolset
+  - 
+  - Riparian zone calculator
+  - 
 
 Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop / ArcGIS Pro basic license. Some tools require the Data Management and Spatial Analyst extensions.
