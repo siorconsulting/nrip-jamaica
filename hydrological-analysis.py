@@ -37,15 +37,15 @@ def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_
     # Calculate flow network (raster)
     outFlowAccumulationNetwork = SetNull(outFlowAccumulation < flow_acc_threshold, 1)
 
-    # Save rasters
+    # Export fill, flow direction and flow accumulation rasters
     outFill.save(gdb_folder_path, gdb_name, f'{out_filename_root}_fill')
     outFlowDirection.save(gdb_folder_path, gdb_name, f'{out_filename_root}_fdir')
     outFlowAccumulation.save(gdb_folder_path, gdb_name, f'{out_filename_root}_facc')
 
-    # Calculate Fill - DTM Difference
+    # Calculate fill - DTM Difference
     outFillDiff = SetNull((outFill - inSurfaceRaster) < 0, 1)
 
-    # Convert Fill Difference raster to polygon and export
+    # Convert fill difference raster to polygon and export
     outPolygons_filename(f'{filename_root}_Fill_polygons')
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFillDiff, outPolygons, "NO_SIMPLIFY")
