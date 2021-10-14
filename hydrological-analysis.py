@@ -3,19 +3,6 @@ from arcpy import env
 from arcpy.sa import *
 from utils import *
 
-# Define paths
-gdb_folder_path = 'INSERT_GDB_FOLDER_PATH'
-gdb_name = 'INSERT_GDB_NAME'
-
-# Create geodatabase
-create_geodatabase(gdb_folder_path, gdb_name)
-
-# Define filename root
-out_filename_root = 'DTM'
-
-# Set flow accumulation threshold
-flow_acc_threshold = 100000
-
 def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_threshold=1000000):
     """ Hydrological routing routine, which generates the following:
         - Fill raster
@@ -54,3 +41,18 @@ def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_
     outPolygons_filename(f'{filename_root}_flow_network_polygons')
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFlowAccumulationNetwork, outPolygons, "NO_SIMPLIFY")
+    
+if __name__ == '__main__':
+    
+    # Define paths
+    gdb_folder_path = 'INSERT_GDB_FOLDER_PATH'
+    gdb_name = 'INSERT_GDB_NAME'
+
+    # Create geodatabase
+    create_geodatabase(gdb_folder_path, gdb_name)
+
+    # Define filename root
+    out_filename_root = 'DTM'
+
+    # Set flow accumulation threshold
+    flow_acc_threshold = 100000
