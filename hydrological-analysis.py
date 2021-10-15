@@ -3,7 +3,72 @@ from arcpy import env
 from arcpy.sa import *
 from utils import *
 
-def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_threshold=1000000):
+__all__ = ['complete_hydrological_routine',
+           'calculate_fill',
+           'calculate_flow_direction',
+           'calculate_flow_accumulation',
+           'calculate_flow_network',
+          ]
+
+def calculate_fill(inSurfaceRaster, zLimit):
+    """Calculates filled digital elevation model raster.
+    
+    Inputs:
+        inSurfaceRaster : raster 
+        zLimit : float
+        
+    Return:
+        outFill : raster
+    """
+   
+    outFill = Fill(inSurfaceRaster, zLimit)
+    return outFill
+
+    
+def calculate_flow_direction(inFillRaster):
+    """Calculates flow direction raster.
+    
+    Inputs:
+        inFillRaster : raster 
+        
+    Return:
+        outFlowDirection : raster
+    """
+    
+    outFlowDirection = FlowDirection(inFillRaster, "NORMAL")
+    return outFlowDirection
+
+    
+def calculate_flow_accumulation(inFlowDirection):
+    """Calculates flow direction raster.
+    
+    Inputs:
+        inFlowDirection : raster 
+        
+    Return:
+        outFlowAccumulation : raster
+    """
+        
+    outFlowAccumulation = FlowAccumulation(inFlowDirection)
+    return outFlowAccumulation
+
+
+def calculate_flow_network(inFlowAccumulation, flow_acc_threshold):
+    """Calculates flow direction raster.
+    
+    Inputs:
+        inFlowAccumulation : raster 
+        flow_acc_threshold : float
+        
+    Return:
+        outFlowAccumulationNetwork : raster
+    """
+        
+    outFlowAccumulationNetwork = SetNull(inFlowAccumulation < flow_acc_threshold, 1)
+    return outFlowAccumulationNetwork
+
+
+def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root, flow_acc_threshold=1000000):
     """ Hydrological routing routine, which generates the following:
         - Fill raster
         - Flow direction raster
@@ -13,7 +78,7 @@ def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_
     """
     
     # Calculate fill 
-    outFill = Fill(inSurfaceRaster, zLimit)
+    outFill = Fill(inSurfaceRaster)
 
     # Calculate flow direction
     outFlowDirection = FlowDirection(outFill, "NORMAL")
@@ -42,6 +107,7 @@ def hydrological_routing(gdb_folder_path, gdb_name, out_filename_root, flow_acc_
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFlowAccumulationNetwork, outPolygons, "NO_SIMPLIFY")
     
+
 if __name__ == '__main__':
     
     # Define paths
