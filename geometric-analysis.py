@@ -18,7 +18,7 @@ def zonal_statistics(in_zone_data, zone_field, in_value_raster, statistics_type 
     ZonalStatistics(in_zone_data, zone_field, in_value_raster, statistics_type = statistics_type)
     
 
-def summarize_within(in_polygons, in_sum_features, out_feature_class, keep_all_polygons='KEEP_ALL', sum_fields='Sum', 
+def summarize_within(in_polygons, in_sum_features, out_feature_class, keep_all_polygons='KEEP_ALL', sum_fields='Sum'):
     """Calculates summarize within and exports to a feature class.
     
     Inputs:
@@ -53,10 +53,23 @@ def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster)
     return outEucDistance
 
 def calculate_hotspots(): 
-    """Calculates hotspots"""
+    """Calculates hotspots
+    
+    Inputs:
+    
+    Return: 
+        
+    """
     
 
 def interection():
-    """Intersect"""
+    """Intersect
+        
+    Inputs:
+    
+    Return: 
+        
+    """
+    
 
 
