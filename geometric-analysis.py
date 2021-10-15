@@ -2,7 +2,25 @@ import arcpy
 from arcpy import env
 from arcpy.sa import *
 
-
+def summarize_within(in_polygons, in_sum_features, out_feature_class, keep_all_polygons='KEEP_ALL', sum_fields='Sum', 
+    """Calculates summarize within and exports to a feature class.
+    
+    Inputs:
+        in_polygons : str
+        in_sum_features : str
+        out_feature_class : str
+        keep_all_polygons : str ['Sum', 'Mean', 'Min', 'Max', 'Stddev']
+        sum_fields : str
+    
+    Return:
+        None
+    """
+  
+    arcpy.SummarizeWithin_analysis(in_polygons, in_sum_features, out_feature_class, 
+                                   keep_all_polygons = keep_all_polygons, 
+                                   sum_fields = sum_fields, 
+                                   )
+    
 def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster):
     """Calculates proximity based on Euclidean distance
     
@@ -13,8 +31,7 @@ def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster)
         outDirectionRaster : raster
         
     Return:
-        outEucDistance : raster
-        
+        outEucDistance : raster   
     """
     outEucDistance = EucDistance(inSourceData, maxDistance, cellSize, outDirectionRaster)
     return outEucDistance
@@ -22,7 +39,7 @@ def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster)
 def calculate_hotspots(): 
     """Calculates hotspots"""
     
-    
+
 def interection():
     """Intersect"""
 
