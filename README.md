@@ -16,5 +16,7 @@ Toolsets include:
   - Sea level rise mapping
   - Storm surge calculator
 - Geomorphological flood risk toolset
+  - Buffer flow network
+  - Slope masking
 
 Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop / ArcGIS Pro basic license. Some tools require the Data Management and Spatial Analyst extensions.
