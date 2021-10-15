@@ -2,6 +2,22 @@ import arcpy
 from arcpy import env
 from arcpy.sa import *
 
+def zonal_statistics(in_zone_data, zone_field, in_value_raster, statistics_type = 'MEAN'):
+    """Calculates zonal statistics
+    
+    Inputs:
+        in_zone_data : raster or feature layer
+        zone_field : field (str)
+        in_value_raster : raster
+        statistics_type : str
+    
+    Return:
+        None 
+    """
+    
+    ZonalStatistics(in_zone_data, zone_field, in_value_raster, statistics_type = statistics_type)
+    
+
 def summarize_within(in_polygons, in_sum_features, out_feature_class, keep_all_polygons='KEEP_ALL', sum_fields='Sum', 
     """Calculates summarize within and exports to a feature class.
     
