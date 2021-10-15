@@ -95,7 +95,7 @@ def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root, 
     outFlowAccumulation.save(gdb_folder_path, gdb_name, f'{out_filename_root}_facc')
 
     # Calculate fill - DTM Difference
-    outFillDiff = SetNull((outFill - inSurfaceRaster) < 0, 1)
+    outFillDiff = SetNull((outFill - inSurfaceRaster) == 0, 1)
 
     # Convert fill difference raster to polygon and export
     outPolygons_filename = f'{filename_root}_Fill_polygons'
