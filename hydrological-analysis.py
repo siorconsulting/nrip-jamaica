@@ -98,12 +98,12 @@ def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root, 
     outFillDiff = SetNull((outFill - inSurfaceRaster) < 0, 1)
 
     # Convert fill difference raster to polygon and export
-    outPolygons_filename(f'{filename_root}_Fill_polygons')
+    outPolygons_filename = f'{filename_root}_Fill_polygons'
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFillDiff, outPolygons, "NO_SIMPLIFY")
 
     # Convert flow network raster to polygon and export
-    outPolygons_filename(f'{filename_root}_flow_network_polygons')
+    outPolygons_filename = f'{filename_root}_flow_network_polygons'
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFlowAccumulationNetwork, outPolygons, "NO_SIMPLIFY")
     
