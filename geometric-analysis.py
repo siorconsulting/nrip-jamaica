@@ -2,6 +2,13 @@ import arcpy
 from arcpy import env
 from arcpy.sa import *
 
+__all__ = ['zonal_statistics',
+           'summarize_within',
+           'calculate_proximity',
+           'calculate_hotspots',
+           
+          ]
+
 def zonal_statistics(in_zone_data, zone_field, in_value_raster, ourRasterPath, statistics_type = 'MEAN'):
     """Calculates zonal statistics
     
