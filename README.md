@@ -1,5 +1,5 @@
 # nrip-jamaica
-Tools developed for National Risk Information Platform (NRIP) project in Jamaica
+Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
 
 Toolsets include: 
 - Geometric analysis toolset
