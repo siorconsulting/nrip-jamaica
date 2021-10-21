@@ -9,7 +9,7 @@ __all__ = ['zonal_statistics',
            
           ]
 
-def zonal_statistics(in_zone_data, zone_field, in_value_raster, ourRasterPath, statistics_type = 'MEAN'):
+def zonal_statistics(in_zone_data, zone_field, in_value_raster, outRasterPath, statistics_type = 'MEAN'):
     """Calculates zonal statistics
     
     Inputs:
