@@ -61,15 +61,34 @@ def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster)
     outEucDistance = EucDistance(inSourceData, maxDistance, cellSize, outDirectionRaster)
     return outEucDistance
 
-def calculate_hotspots(): 
-    """Calculates hotspots
+def calculate_hotspots(in_features, population_field, out_raster_path):                                      
+    """Calculates hotspots based on a layer of points using a kernel function to fit a smoothly tapered surface.
     
     Inputs:
+           in_features :
+           population_field : 
     
     Return: 
         
     """
-    
+           
+    # There are additional parameters to be specified -- see fi's email. 
+    outKernelDensity = KernelDensity(in_features, population_field)
+           
+    array = arcpy.RasterToNumPyArray(tiff)
+
+    p = [np.percentile(array, q) for q in [0,20,40,60,80,100]]
+           
+    outReclass = Reclassify(outKernelDensity, "Value", 
+                         RemapRange([[p[0],p[1],1],
+                                     [p[1],p[2],2],
+                                     [p[2],p[3],3],
+                                     [p[3],p[4],4],
+                                     [p[4],p[5],5],
+                                    ])
+                           )
+
+    outReclass.save(out_raster_path)
 
 def interection():
     """Intersect
