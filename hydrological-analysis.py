@@ -1,4 +1,5 @@
 import arcpy
+import os
 from arcpy import env
 from arcpy.sa import *
 from utils import *
@@ -90,9 +91,9 @@ def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root, 
     outFlowAccumulationNetwork = SetNull(outFlowAccumulation < flow_acc_threshold, 1)
 
     # Export fill, flow direction and flow accumulation rasters
-    outFill.save(gdb_folder_path, gdb_name, f'{out_filename_root}_fill')
-    outFlowDirection.save(gdb_folder_path, gdb_name, f'{out_filename_root}_fdir')
-    outFlowAccumulation.save(gdb_folder_path, gdb_name, f'{out_filename_root}_facc')
+    outFill.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fill')
+    outFlowDirection.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fdir')
+    outFlowAccumulation.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_facc')
 
     # Calculate fill - DTM Difference
     outFillDiff = SetNull((outFill - inSurfaceRaster) == 0, 1)
