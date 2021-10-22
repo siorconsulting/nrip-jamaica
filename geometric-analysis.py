@@ -61,7 +61,7 @@ def calculate_proximity(inSourceData, maxDistance, cellSize, outDirectionRaster)
     outEucDistance = EucDistance(inSourceData, maxDistance, cellSize, outDirectionRaster)
     return outEucDistance
 
-def calculate_hotspots(in_features, population_field, out_raster_path):                                      
+def calculate_hotspots(in_features, masking_polygon, out_raster_path, population_field = None):                                      
     """Calculates hotspots based on a layer of points using a kernel function to fit a smoothly tapered surface.
     
     Inputs:
@@ -72,14 +72,17 @@ def calculate_hotspots(in_features, population_field, out_raster_path):
         
     """
            
-    # There are additional parameters to be specified -- see fi's email. 
-    outKernelDensity = KernelDensity(in_features, population_field)
-           
-    array = arcpy.RasterToNumPyArray(tiff)
+    outKernelDensity = KernelDensity(in_features, population_field, cell_size = 500)
+    
+    outExtractByMask = ExtractByMask(outKernelDensity, masking_polygon)
+    outExtractByMask.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_Hotspot')
+    
+    array = arcpy.RasterToNumPyArray(outExtractByMask)
 
     p = [np.percentile(array, q) for q in [0,20,40,60,80,100]]
-           
-    outReclass = Reclassify(outKernelDensity, "Value", 
+    
+        
+    outReclass = Reclassify(outExtractByMask, "Value", 
                          RemapRange([[p[0],p[1],1],
                                      [p[1],p[2],2],
                                      [p[2],p[3],3],
@@ -87,7 +90,6 @@ def calculate_hotspots(in_features, population_field, out_raster_path):
                                      [p[4],p[5],5],
                                     ])
                            )
-
     outReclass.save(out_raster_path)
 
 def interection():
@@ -100,4 +102,14 @@ def interection():
     """
     
 
+if __name__ == '__main__':
+    
+    # Define paths
+    gdb_folder_path = 'INSERT_GDB_FOLDER_PATH'
+    gdb_name = 'INSERT_GDB_NAME'
 
+    # Create geodatabase
+    create_geodatabase(gdb_folder_path, gdb_name)
+
+    # Define filename root
+    out_filename_root = 'INSERT_FILENAME_ROOT'
