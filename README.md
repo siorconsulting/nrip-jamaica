@@ -1,5 +1,27 @@
-# nrip-jamaica
+# Toolset for National Risk Information Platform in Jamaica
+
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
+
+## Project Context - National Risk Information Platform (NRIP)
+
+> WORK IN PROGRESS (FOR KAREN TO DRAFT)
+
+## Setup and installation
+
+> COMPLETED 
+
+Clone or download this repository from
+[GitHub](https://github.com/siorconsulting/nrip-jamaica):
+
+    git clone git@github.com:siorconsulting/nrip-jamaica.git
+
+Install required python packages:
+
+    pip install -r requirements.txt
+
+## Available toolsets  
+
+> WORK IN PROGRESS (FOR KAREN TO RE-DRAFT)
 
 Toolsets include: 
 - Geometric analysis toolset
