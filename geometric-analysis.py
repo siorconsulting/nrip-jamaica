@@ -5,9 +5,9 @@ from arcpy.sa import *
 __all__ = ['zonal_statistics',
            'summarize_within',
            'calculate_proximity',
-           'calculate_hotspots',
-           'buffer_vector_feature',
-           'intersect',
+           'calculate_hotspots', # NOT TESTED
+           'buffer_vector', # NOT TESTED
+           'intersect', # NOT TESTED
           ]
 
 def zonal_statistics(in_zone_data, zone_field, in_value_raster, outRasterPath, statistics_type = 'MEAN'):
@@ -93,7 +93,7 @@ def calculate_hotspots(in_features, masking_polygon, out_raster_path, population
                            )
     outReclass.save(out_raster_path)
 
-def buffer_vector_feature(in_features, out_feature_class, buffer_distance_or_field):
+def buffer_vector(in_features, out_feature_class, buffer_distance_or_field):
     """Buffers vector features by specified distance.
     
     Inputs:
