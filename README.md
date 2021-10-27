@@ -8,7 +8,7 @@ Tools developed for National Risk Information Platform (NRIP) project in Jamaica
 
 ## Setup and installation
 
-> COMPLETED
+> COMPLETED 
 
 Clone or download this repository from
 [GitHub](https://github.com/siorconsulting/nrip-jamaica):
