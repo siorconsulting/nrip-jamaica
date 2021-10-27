@@ -1,5 +1,20 @@
 # nrip-jamaica
+
+
+> WORK IN PROGRESS 
+
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
+
+## Setup and installation
+
+Clone or download this repository from
+[GitHub](https://github.com/nismod/jamaica-infrastructure):
+
+    git clone git@github.com:nismod/jamaica-infrastructure.git
+
+Install required python packages:
+
+    pip install -r requirements.txt
 
 Toolsets include: 
 - Geometric analysis toolset
