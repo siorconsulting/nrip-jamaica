@@ -1,9 +1,14 @@
 # nrip-jamaica
 
-
 > WORK IN PROGRESS 
 
+## Desciption 
+
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
+
+## Project context
+
+> WORK IN PROGRESS (KAREN)
 
 ## Setup and installation
 
@@ -16,7 +21,7 @@ Install required python packages:
 
     pip install -r requirements.txt
 
-## Tool sets  
+## Available toolsets  
 
 Toolsets include: 
 - Geometric analysis toolset
