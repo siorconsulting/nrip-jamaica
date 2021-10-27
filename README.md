@@ -8,9 +8,9 @@ Tools developed for National Risk Information Platform (NRIP) project in Jamaica
 ## Setup and installation
 
 Clone or download this repository from
-[GitHub](https://github.com/nismod/jamaica-infrastructure):
+[GitHub](https://github.com/siorconsulting/nrip-jamaica):
 
-    git clone git@github.com:nismod/jamaica-infrastructure.git
+    git clone git@github.com:siorconsulting/nrip-jamaica.git
 
 Install required python packages:
 
