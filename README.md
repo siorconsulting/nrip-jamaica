@@ -1,4 +1,4 @@
-# nrip-jamaica
+# Jamaica National Risk Information Platform repository
 
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
 
