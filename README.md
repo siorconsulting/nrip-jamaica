@@ -2,7 +2,7 @@
 
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
 
-## Context: National Risk Information Platform (NRIP)
+## Project Context -- National Risk Information Platform (NRIP)
 
 > WORK IN PROGRESS (FOR KAREN TO DRAFT)
 
