@@ -2,11 +2,9 @@
 
 > WORK IN PROGRESS 
 
-## Desciption 
-
 Tools developed for National Risk Information Platform (NRIP) project in Jamaica in 2021
 
-## Project context
+## Context: National Risk Information Platform (NRIP)
 
 > WORK IN PROGRESS (KAREN)
 
