@@ -88,7 +88,7 @@ def reclassify_raster(in_raster, reclass_field="Value", save_raster=False, save_
                                         [p[2],p[3],3],
                                         [p[3],p[4],4],
                                         [p[4],p[5],5],
-                                       ]))
+                                       ])
                            
     if save_raster:
         outReclass.save(save_raster_path)
