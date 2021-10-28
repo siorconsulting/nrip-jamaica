@@ -2,7 +2,8 @@ import arcpy
 
 __all__ = ['change_first_character_to_alphabetic',
            'rename_feature_class_if_already_exists',
-           'create_geodatabase'
+           'create_geodatabase',
+           'reclassify_raster', # NOT TESTED
           ]
 
 def change_first_character_to_alphabetic(name):
@@ -70,6 +71,23 @@ def reclassify_raster(in_raster, reclass_field, save_raster=False, save_raster_p
            None
     """
     
-    outReclassify = Reclassify(in_raster, reclass_field, remap,
+    array = arcpy.RasterToNumPyArray(in_raster)
+
+    p = [np.percentile(array, q) for q in [0,20,40,60,80,100]]
+    
+    outReclass = Reclassify(in_raster, "Value", 
+                            RemapRange([[p[0],p[1],1],
+                                        [p[1],p[2],2],
+                                        [p[2],p[3],3],
+                                        [p[3],p[4],4],
+                                        [p[4],p[5],5],
+                                       ])
+
     if save_raster:
-           outReclassify.save(save_raster_path)          
+           outReclass.save(save_raster_path)
+    
+    return outReclass
+                            
+    
+                            
+
