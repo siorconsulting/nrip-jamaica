@@ -8,9 +8,9 @@ The National Risk Information Platform (NRIP) is a multi-hazard risk information
 
 The NRIP is conceptualized as a platform that provides users with the ability to visualize and interact with hazard, vulnerability, and risk data through a series of map layers that can be activated and deactivated based on scenarios or analysis that the user wishes to perform. Each map layer will have supporting attribute data, as well as links to detailed information on hazards, vulnerability and losses contained in tables, photographs and reports that provide added information for location-specific analyses. In addition to the map feature, an NRIP module will include a community of practice that operates as a discussion forum for specialists and practitioners to share views, discuss ideas and concepts and suggest recommendations for best practices that benefit the sector (https://nripja.discoursehosting.net/). 
 
-Sior Consulting Ltd. (https://siorconsulting.com/) supported the development of the platform by undertaking data manipulation, and in particular LiDAR-driven hazard data derivation, and developing risk modelling toolsets (as provided here) and case studies to showcase the capabilities and outputs of the analysis tools.
+Sior Consulting Ltd. (https://siorconsulting.com/) supported the development of the platform by undertaking data manipulation, particularly LiDAR-driven data derivation for coastal, hydrological and geomorphological hazards in three study locations in Jamaica, and developing risk modelling toolsets (as provided here) and case studies to showcase the capabilities and outputs of the analysis tools.
 
-## Setup and installation
+## Setup and Installation
 
 > COMPLETED 
 
@@ -23,13 +23,13 @@ Install required python packages:
 
     pip install -r requirements.txt
 
-## Available toolsets  
+## Available Toolsets  
 
 > WORK IN PROGRESS (FOR KAREN TO RE-DRAFT)
 
 Toolsets include: 
 - Geometric analysis toolset
-  - Hostpot (density) analysis tool 
+  - Hotspot (density) analysis tool 
   - Proximity analysis tool
   - Intersection analysis tool
 - Hydrological analysis toolset
