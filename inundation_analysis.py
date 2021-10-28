@@ -1,57 +1,31 @@
 import arcpy
 from arcpy import env
 from arcpy.sa import *
+from conditional_eval import *
 
-__all__ = ['set_null_between',
-           'set_null_below',
-           'set_null_above'
+__all__ = ['inundation_extents',
           ]
 
-def set_null_below(inRaster, th):
-  """ Creates constant valued raster based on SetNull operator below threshold.
+def inundation_extents(ElevationRaster, list_thresholds=[0,5,10,15]):
+  """ XXX
   
-  Input:
-      inRaster : raster
-      th : float
+  Inputs:
   
   Return:
-      betweenRaster : raster
-  
   """
-  outRaster = SetNull(inRaster < th, inRaster)
-  
-  return outRaster
+  for i, th in enumerate(list_thresholds):
+                      
+     if i==0:
+        outRaster=set_null_above(inRaster,th)
+        outRaster.save()
+     elif i==len(list_thresholds):
+        pass
+     else:
+        low_th = th
+        high_th = list_threshold[i+1]
+        set_null_between(inRatser, low_th, high_th)
+        
+   
 
-def set_null_above(inRaster, th):
-  """ Creates constant valued raster based on SetNull operator above thredhold.
-  
-  Input:
-      inRaster : raster
-      th : float
-  
-  Return:
-      betweenRaster : raster
-  
-  """
-  outRaster = SetNull(inRaster > th, inRaster)
-  
-  return outRaster
 
-def set_null_between(inRaster, low_th, high_th):
-  """ Creates constant valued raster based on two SetNull operations.
-  
-  Input:
-      inRaster : raster
-      low_th : float
-      high_th : float
-  
-  Return:
-      betweenRaster : raster
-  
-  """
-         
-  lowRaster = SetNull(inRaster > high_th, inRaster)
-  outRaster = SetNull(lowRaster < low_th, 1)
-  
-  return outRaster
 
