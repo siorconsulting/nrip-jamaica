@@ -59,6 +59,9 @@ def create_geodatabase(gdb_folder_path, gdb_name):
     """
     arcpy.management.Delete(os.path.join(gdb_folder_path,gdb_name))
     arcpy.management.CreateFileGDB(gdb_folder_path, gdb_name)
+     
+    return print("geodatabase successfully created")
+
 
 def reclassify_raster(in_raster, reclass_field, save_raster=False, save_raster_path=None):
     """Reclassify raster values.
