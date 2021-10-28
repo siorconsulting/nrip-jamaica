@@ -6,7 +6,7 @@ __all__ = ['zonal_statistics',
            'summarize_within',
            'calculate_proximity',
            'calculate_hotspots',
-           'buffer_vector',
+           'buffer_vector', # Update Optional Paramater
            'intersect', # NOT TESTED
           ]
 
