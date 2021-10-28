@@ -4,6 +4,7 @@ __all__ = ['change_first_character_to_alphabetic',
            'rename_feature_class_if_already_exists',
            'create_geodatabase',
            'reclassify_raster', # NOT TESTED
+           'set_symbology_from_layer', # NOT TESTED
           ]
 
 def change_first_character_to_alphabetic(name):
@@ -60,7 +61,7 @@ def create_geodatabase(gdb_folder_path, gdb_name):
     arcpy.management.CreateFileGDB(gdb_folder_path, gdb_name)
 
 def reclassify_raster(in_raster, reclass_field, save_raster=False, save_raster_path=None):
-    """Reclassify raster
+    """Reclassify raster values.
     
     Inputs:
            in_raster : raster
@@ -87,7 +88,16 @@ def reclassify_raster(in_raster, reclass_field, save_raster=False, save_raster_p
            outReclass.save(save_raster_path)
     
     return outReclass
-                            
-    
-                            
 
+def set_symbology_from_layer(inputLayer, symbologyLayer):
+    """Import symbology from layer
+    
+    Inputs:
+    
+    Returns: 
+           None
+    """
+    
+    # Apply the symbology from the symbology layer to the input layer
+    arcpy.ApplySymbologyFromLayer_management(inputLayer, symbologyLayer)
+                            
