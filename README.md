@@ -12,8 +12,6 @@ Sior Consulting Ltd. (https://siorconsulting.com/) supported the development of 
 
 ## Setup and Installation
 
-> COMPLETED 
-
 Clone or download this repository from
 [GitHub](https://github.com/siorconsulting/nrip-jamaica):
 
