@@ -11,7 +11,7 @@ __all__ = ['complete_hydrological_routine',
            'calculate_flow_network',
           ]
 
-def calculate_fill(inSurfaceRaster, zLimit):
+def calculate_fill(inSurfaceRaster, zLimit=None):
     """Calculates filled digital elevation model raster.
     
     Inputs:
@@ -21,8 +21,12 @@ def calculate_fill(inSurfaceRaster, zLimit):
     Return:
         outFill : raster
     """
-   
-    outFill = Fill(inSurfaceRaster, zLimit)
+    
+    if zLimit is not None:
+        outFill = Fill(inSurfaceRaster, zLimit)
+    else:
+        outFill = Fill(inSurfaceRaster)
+        
     return outFill
 
     
@@ -69,7 +73,7 @@ def calculate_flow_network(inFlowAccumulation, flow_acc_threshold):
     return outFlowAccumulationNetwork
 
 
-def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root, flow_acc_threshold=1000000):
+def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root=None, flow_acc_threshold=1000000):
     """ Hydrological routing routine, which generates the following:
         - Fill raster
         - Flow direction raster
