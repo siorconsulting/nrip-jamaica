@@ -23,7 +23,7 @@ Install required python packages:
 
 ## Available Toolsets  
 
-> WORK IN PROGRESS (FOR KAREN TO RE-DRAFT)
+> WORK IN PROGRESS
 
 Toolsets include: 
 - Geometric analysis toolset
@@ -35,10 +35,11 @@ Toolsets include:
   - Flow direction calculator
   - Flow accumulation calculator
   - Flow network calculator
+  - Basin delineator
   - Integrated hydrological routine
 - Coastal inundation toolset
-  - Sea level rise mapping
-  - Storm surge calculator
+  - Sea level rise mapping 
+  - Storm surge calculator 
 - Geomorphological flood risk toolset
   - Buffer flow network
   - Slope masking
