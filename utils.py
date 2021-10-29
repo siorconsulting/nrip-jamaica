@@ -1,6 +1,8 @@
 import arcpy
+import os
 from arcpy import env
 from arcpy.sa import *
+
 
 __all__ = ['change_first_character_to_alphabetic',
            'rename_feature_class_if_already_exists',

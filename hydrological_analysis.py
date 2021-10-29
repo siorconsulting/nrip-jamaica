@@ -73,7 +73,7 @@ def calculate_flow_network(inFlowAccumulation, flow_acc_threshold):
     return outFlowAccumulationNetwork
 
 
-def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root=None, flow_acc_threshold=1000000):
+def complete_hydrological_routine(inSurfaceRaster, gdb_folder_path, gdb_name, out_filename_root=None, flow_acc_threshold=1000):
     """ Hydrological routing routine, which generates the following:
         - Fill raster
         - Flow direction raster
@@ -84,33 +84,40 @@ def complete_hydrological_routine(gdb_folder_path, gdb_name, out_filename_root=N
     
     # Calculate fill 
     outFill = Fill(inSurfaceRaster)
+    outFill.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fill')
 
     # Calculate flow direction
     outFlowDirection = FlowDirection(outFill, "NORMAL")
-
+    outFlowDirection.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fdir')
+    
     # Calculate flow acccumulation
     outFlowAccumulation = FlowAccumulation(outFlowDirection)
-
+    outFlowAccumulation.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_facc')
+    
     # Calculate flow network (raster)
     outFlowAccumulationNetwork = SetNull(outFlowAccumulation < flow_acc_threshold, 1)
-
-    # Export fill, flow direction and flow accumulation rasters
-    outFill.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fill')
-    outFlowDirection.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_fdir')
-    outFlowAccumulation.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_facc')
-
+    
+    # Calculate basins
+    outBasins = Basin(outFlowDirection)
+    outBasins.save(f'{gdb_folder_path}\\{gdb_name}\\{out_filename_root}_basins')
+  
     # Calculate fill - DTM Difference
     outFillDiff = SetNull((outFill - inSurfaceRaster) == 0, 1)
 
     # Convert fill difference raster to polygon and export
-    outPolygons_filename = f'{filename_root}_Fill_polygons'
+    outPolygons_filename = f'{out_filename_root}_Fill_polygons'
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFillDiff, outPolygons, "NO_SIMPLIFY")
 
     # Convert flow network raster to polygon and export
-    outPolygons_filename = f'{filename_root}_flow_network_polygons'
+    outPolygons_filename = f'{out_filename_root}_flow_network_polygons'
     outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
     arcpy.RasterToPolygon_conversion(outFlowAccumulationNetwork, outPolygons, "NO_SIMPLIFY")
+    
+    # Cnvert basins to polygon and export
+    outPolygons_filename = f'{out_filename_root}_basins_polygons'
+    outPolygons = os.path.join(gdb_folder_path,gdb_name,outPolygons_filename)
+    arcpy.RasterToPolygon_conversion(outBasins, outPolygons, "NO_SIMPLIFY")
     
 
 if __name__ == '__main__':

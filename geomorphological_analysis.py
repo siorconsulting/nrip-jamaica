@@ -1,6 +1,5 @@
 import arcpy
 from arcpy.sa import *
-from conditional_eval import *
 
 def calculate_slope(ElevationRaster):
     """Create slope raster.
@@ -29,10 +28,11 @@ def calculate_aspect(ElevationRaster):
 
 def steep_areas(ElevationRaster, threshold=20, out_raster_features=None, out_polygon_features=None):
     outSlope = Slope(ElevationRaster)
-    steepAreas = set_null_below(outSlope < threshold, 1)
+    steepAreas = SetNull(outSlope < threshold, 1)
     if out_raster_features is not None:
         steepAreas.save(out_raster_features)
     if out_polygon_features is not None:
         arcpy.conversion.RasterToPolygon(steepAreas, out_polygon_features)
+        arcpy.management.Dissolve(out_polygon_features, out_polygon_features+'_dissolve')
     return steepAreas
     
