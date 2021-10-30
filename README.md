@@ -29,7 +29,7 @@ Toolsets include:
 - Geometric analysis toolset
   - Hotspot (density) analysis tool 
   - Proximity analysis tool
-  - Intersection analysis tool
+  - Summarise-within tool
 - Hydrological analysis toolset
   - Fill calculator
   - Flow direction calculator
