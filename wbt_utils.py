@@ -1,8 +1,9 @@
 import whitebox
+import os
 
 __all__ = ['wbt_setup']
 
-def wbt_setup(working_dir, verbose = False):
+def wbt_setup(working_dir=None, verbose = False):
     """Setup for whitebox toolset. 
     
     Inputs: 
@@ -13,7 +14,10 @@ def wbt_setup(working_dir, verbose = False):
         wbt : WhiteboxTools object
     """
     wbt = whitebox.WhiteboxTools()
-    wbt.set_working_dir(working_dir)
+    if working_dir is None:
+        wbt.set_working_dir(os.getcwd())
+    else:
+        wbt.set_working_dir(working_dir)
     wbt.verbose = verbose
     return wbt
 

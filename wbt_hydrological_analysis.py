@@ -1,9 +1,9 @@
 import os 
 from wbt_utils import * 
 
-__all__ = ['wbt_hydrological_routine']
+__all__ = ['HydrologicalRouting']
 
-def wbt_hydrological_routine(dem, output_prefix, working_dir, facc_threshold=1000, remove_temp_outputs=True):
+def HydrologicalRouting(dem, output_prefix, working_dir, facc_threshold=1000, remove_temp_outputs=True):
 
     """Hydrolgical anaysis routine. 
     
