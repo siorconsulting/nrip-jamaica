@@ -1,57 +1,42 @@
 import arcpy
 from arcpy import env
 from arcpy.sa import *
+from conditional_eval import *
 
-__all__ = ['set_null_between',
-           'set_null_below',
-           'set_null_above'
-          ]
+__all__ = ['inundation_extents']
 
-def set_null_below(inRaster, th):
-  """ Creates constant valued raster based on SetNull operator below threshold.
+def inundation_extents(ElevationRaster, list_thresholds=[0,5,10,15], out_raster_root_path=None, out_polygon_root_path=None):
+    """ Creates a set of inundation extents based on elevation thresholds and exports them as polygons and/or rasters' 
   
-  Input:
-      inRaster : raster
-      th : float
-  
-  Return:
-      betweenRaster : raster
-  
-  """
-  outRaster = SetNull(inRaster < th, inRaster)
-  
-  return outRaster
+    Inputs:
+        ElevationRaster L raster
+        list_thresholds [optional] : list
+        out_raster_tool_path [optional] : str
+    
+    Returns:
+        None
+    """
+    
+    for i, th in enumerate(list_thresholds):
+        if i==0:
 
-def set_null_above(inRaster, th):
-  """ Creates constant valued raster based on SetNull operator above thredhold.
-  
-  Input:
-      inRaster : raster
-      th : float
-  
-  Return:
-      betweenRaster : raster
-  
-  """
-  outRaster = SetNull(inRaster > th, inRaster)
-  
-  return outRaster
+            outRaster=set_null_above(ElevationRaster,th)
+            if out_raster_root_path is not None:
+                outRaster.save(f"{out_raster_root_path}_below_{str(th).replace('.','p')}")
+            if out_polygon_root_path is not None:
+                out_polygon_features = f"{out_polygon_root_path}_below_{str(th).replace('.','p')}"
+                arcpy.conversion.RasterToPolygon(outRaster, out_polygon_features)
+        if i<len(list_thresholds)-1:
 
-def set_null_between(inRaster, low_th, high_th):
-  """ Creates constant valued raster based on two SetNull operations.
-  
-  Input:
-      inRaster : raster
-      low_th : float
-      high_th : float
-  
-  Return:
-      betweenRaster : raster
-  
-  """
-         
-  lowRaster = SetNull(inRaster > high_th, inRaster)
-  outRaster = SetNull(lowRaster < low_th, 1)
-  
-  return outRaster
+            low_th = th
+            high_th = list_thresholds[i+1]
+            outRaster = set_null_between(ElevationRaster, low_th, high_th)
+            if out_raster_root_path is not None:
+                outRaster.save(f"{out_raster_root_path}_from_{str(low_th).replace('.','p')}_to_{str(high_th).replace('.','p')}")
+            if out_polygon_root_path is not None:
+                out_polygon_features = f"{out_polygon_root_path}_from_{str(low_th).replace('.','p')}_to_{str(high_th).replace('.','p')}"
+                arcpy.conversion.RasterToPolygon(outRaster, out_polygon_features)
+   
+
+
 

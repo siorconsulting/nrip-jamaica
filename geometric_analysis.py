@@ -5,8 +5,8 @@ from arcpy.sa import *
 __all__ = ['zonal_statistics',
            'summarize_within',
            'calculate_proximity',
-           'calculate_hotspots', # NOT TESTED
-           'buffer_vector', # NOT TESTED
+           'calculate_hotspots',
+           'buffer_vector', # Update Dissolve Optional Paramater
            'intersect', # NOT TESTED
           ]
 
