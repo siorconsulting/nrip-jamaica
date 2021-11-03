@@ -1,9 +1,10 @@
 import whitebox
 import os
+import numpy
 
 __all__ = ['wbt_setup']
 
-def wbt_setup(working_dir=None, verbose = False):
+def wbt_setup(working_dir=None, verbose=False):
     """Setup for whitebox toolset. 
     
     Inputs: 
