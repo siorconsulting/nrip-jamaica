@@ -4,7 +4,6 @@ from wbt_utils import *
 wbt = wbt_setup()
 
 __all__ = ['HydrologicalRouting']
-# Could  you explain the function __all__ again?
 
 def ClippingByElevation(dem, output_clipped_dem):
     wbt.conditional_evaluation(i=dem, 
@@ -14,15 +13,14 @@ def ClippingByElevation(dem, output_clipped_dem):
                                 false="null")
 
 def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_outputs=True):
-# not really understand facc_threshold but remove_temp_outputs will not store the temp outputs within notebook, right?   facc is flow accummulation threshold and temp outputs are define below....I've answered my own question :)
-# if we don't define the working_dir, it will print the output in it's default repo location??
 
-    """Hydrolgical anaysis routine. 
+
+    """Hydrolgical analysis routine. 
     
     Inputs:
-        dem : 
-        output_prefix : 
-        facc_threshold : 
+        dem : str <-- path to raster(.tif) file
+        output_prefix : str <-- site specific name appended to each output file name
+        facc_threshold : int or float <-- flow accummulation threshold value
         remove_temp_ouputs : 
 
     Exports:
@@ -73,6 +71,6 @@ def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_out
         os.remove(os.path.join(wbt.work_dir,out_basins))
         os.remove(os.path.join(wbt.work_dir,out_conditional))
 
-# went through line by line for the code, mainly have a couple questions related to syntax
+
 
 
