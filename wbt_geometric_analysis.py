@@ -18,40 +18,51 @@ __all__ = ['intersect', # NOT TESTED
            'hotspots_from_polygons', # NOT TESTED
            'hotspots_from_raster', # NOT TESTED
            'interpolate_points', # NOT TESTED 
-
+           'SummarizeWithin',
           ]
 
 def intersect(input_vector_file, overlay, output_vector_file):
+    """
+    Function to return all feature parts that occur in both input layers
+
+    Inputs:
+        input_vector_file: str <-- name of input vector(.shp) file
+        overlay: str <-- name of input overlay vector(.shp) file
+        output_vector_file: str <-- name of output vector(.shp) file
+
+    Outputs:
+        output_vector_file: shapefile  <-- output vector shapefile
+    """
     wbt.intersect(input_vector_file, overlay, output_vector_file)
 
-def zonal_statistics(input_raster, input_features, output_raster, stat='mean', input_features_is_raster=True):
+def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', input_zones_is_raster=True):
     """Calculates zonal statistics based on an input raster, using raster or polygon zones. 
     
     Inputs:
-        input_raster : str
-        input_features : str
-        output_raster : str
-        stat [optional] : str
-        feature_is_raster [optional] : boolean
+        input_raster : str <-- input raster(.tif) file
+        input_zones : str <-- input raster(.tif) or polygon(.shp)
+        output_raster : str <-- output raster(.tif) file name
+        stat [optional] : str <-- 
+        input_zones_is_raster [optional] : boolean <-- 
 
     Exports:
-        output_raster : raster
+        output_raster : raster <-- output raster(.tif) file
 
     Returns:
         None
 
     """
 
-    if input_features_is_raster:
-        input_raster = input_features
+    if input_zones_is_raster:
+        input_zones_raster = input_zones
     else:
-        input_raster = 'temp_input_raster.tif'
-        wbt.raster_to_vector_polygons(input_features, input_raster)
+        input_zones_raster = 'temp_input_raster.tif'
+        wbt.vector_polygons_to_raster(input_zones, input_zones_raster)
     
-    wbt.zonal_statistics(i=input_raster, features=input_raster, output=output_raster, stat=stat)
+    wbt.zonal_statistics(i=input_raster, features=input_zones_raster, output=output_raster, stat=stat)
 
-    if not input_features_is_raster:
-        os.remove(os.path.join(wbt.work_dir,input_raster))
+    if not input_zones_is_raster:
+        os.remove(os.path.join(wbt.work_dir,input_zones_raster))
     
 def distance_from_points(input_points, output_raster):
     input_raster = 'temp_input_raster.tif'
