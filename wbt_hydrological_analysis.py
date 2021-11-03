@@ -6,34 +6,51 @@ wbt = wbt_setup()
 __all__ = ['HydrologicalRouting']
 
 def ClippingByElevation(dem, output_clipped_dem):
-    wbt.conditional_evaluation(i=dem, 
+    '''
+    Clips the dem boundary based on specific threshold
+
+    Inputs:
+        dem : str <-- path to raster(.tif) file
+
+    Outputs:
+        output clipped dem : str <-- output raster(.tif) clipped to the define extent
+
+    Returns:
+        None
+    
+    '''
+
+    # provides evaluation on raster based on certain condtional statements
+    wbt.conditional_evaluation(i=dem,                               
                                 output=output_clipped_dem, 
-                                statement="value > 0", 
+                                statement="value > 0",               # threshold for the clipping boundary
                                 true=dem, 
                                 false="null")
+
 
 def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_outputs=True):
 
 
-    """Hydrolgical analysis routine. 
+    """
+    Performs the Hydrological Analysis on the input dem and calculates flow lines, basins and sinks derived from input dem
     
     Inputs:
         dem : str <-- path to raster(.tif) file
         output_prefix : str <-- site specific name appended to each output file name
         facc_threshold : int or float <-- flow accummulation threshold value
-        remove_temp_ouputs : 
+        remove_temp_ouputs : boolean <-- deafulted at true, removes temporary outputs
 
-    Exports:
-        fill raster [temp] : 
-        flow direction raster [temp] : 
-        flow accumulation raster [temp] :
-        flow accumulation setnull raster [temp] : 
-        flow accumulation setnull lines: 
-        basins raster [temp]: 
-        basins polygon :
-        fill depth raster :
-        fill extent raster [temp] : 
-        fill extent polygons :  
+    Outputs:
+        fill raster [temp] : temporary output generated for analysis
+        flow direction raster [temp] : temporary output generated for analysis
+        flow accumulation raster [temp] : temporary output generated for analysis
+        flow accumulation setnull raster [temp] : temporary output generated for analysis
+        flow accumulation setnull lines: str <-- output line(.shp) that represents flow accummulation lines
+        basins raster [temp]: temporary output generated for analysis
+        basins polygon : str <-- output polygon(.shp) that represents drainage basins
+        fill depth raster : str <-- output raster(.tif) that represents sinks
+        fill extent raster [temp] : temporary output generated for analysis
+        fill extent polygons :  str <-- output polygon(.shp) that represents sinks
     
     Returns:
         None 
@@ -51,17 +68,17 @@ def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_out
     out_conditional = f"{output_prefix}_fill_extent.tif"
     out_conditional_polygon = f"{output_prefix}_fill_extent_polygon.shp"
 
-    wbt.fill_depressions_planchon_and_darboux(dem, out_fill)
-    wbt.d8_pointer(out_fill, out_fdir, esri_pntr=True)
-    wbt.d8_flow_accumulation(out_fdir, out_facc, pntr=True, esri_pntr=True)
-    wbt.conditional_evaluation(i=out_facc, output=out_facc_setnull, statement=f"value >= {facc_threshold}", true=1, false='null') 
-    wbt.raster_to_vector_lines(i=out_facc_setnull, output=out_facc_setnull_lines)
-    wbt.basins(out_fdir, out_basins, esri_pntr=True)
-    wbt.raster_to_vector_polygons(i=out_basins, output=out_basins_polygon)
+    wbt.fill_depressions_planchon_and_darboux(dem, out_fill) # fills depressions of input raster
+    wbt.d8_pointer(out_fill, out_fdir, esri_pntr=True) # calcualtes flow direction from filled raster
+    wbt.d8_flow_accumulation(out_fdir, out_facc, pntr=True, esri_pntr=True) # calculates flow accumulation from flow direction raster
+    wbt.conditional_evaluation(i=out_facc, output=out_facc_setnull, statement=f"value >= {facc_threshold}", true=1, false='null') # provides evaluation on raster based on certain condtional statements
+    wbt.raster_to_vector_lines(i=out_facc_setnull, output=out_facc_setnull_lines) # converts temporary buffered raster to lines
+    wbt.basins(out_fdir, out_basins, esri_pntr=True) # calculates basins by delineating all of the drainage basins and drainging to the edge of the data
+    wbt.raster_to_vector_polygons(i=out_basins, output=out_basins_polygon) # converts temporary buffered raster to polygons
 
-    wbt.raster_calculator(output=out_calculator, statement=f"'{out_fill}'-'{dem}'")
-    wbt.conditional_evaluation(i=out_calculator, output=out_conditional, statement="value>0", true=1, false="null")
-    wbt.raster_to_vector_polygons(i=out_conditional, output=out_conditional_polygon)
+    wbt.raster_calculator(output=out_calculator, statement=f"'{out_fill}'-'{dem}'") # performs comples mathematical operations on raster based on mathematical expression, or statement
+    wbt.conditional_evaluation(i=out_calculator, output=out_conditional, statement="value>0", true=1, false="null") # provides evaluation on raster based on certain condtional statements
+    wbt.raster_to_vector_polygons(i=out_conditional, output=out_conditional_polygon) # converts temporary buffered raster to polygons
 
     if remove_temp_outputs:
         os.remove(os.path.join(wbt.work_dir,out_fill))
@@ -70,7 +87,3 @@ def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_out
         os.remove(os.path.join(wbt.work_dir,out_facc_setnull))
         os.remove(os.path.join(wbt.work_dir,out_basins))
         os.remove(os.path.join(wbt.work_dir,out_conditional))
-
-
-
-
