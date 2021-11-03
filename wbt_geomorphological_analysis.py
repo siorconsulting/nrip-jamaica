@@ -17,7 +17,7 @@ def GeomorphologicalFluvialFloodHazardAreas(dem, output_prefix, buffer_distance,
         facc_threshold: int or float <-- flow accumulation threshold defaulted at 1000
         buffer_distance: int or float <-- distance used to buffer flow accumulation raster
     
-    Exports:
+    Outputs:
         out_facc_setnull_buffer_polygon: str <-- output polygon(.shp) that represents flood hazard areas
     
     Returns:
@@ -55,7 +55,7 @@ def SteepAreas(dem, threshold, output_prefix, delete_temp_outputs=True):
         output_prefix: str <-- site specific name appended to each output file name
         delete_temp_outputs [optional] : boolean <-- if True will delete temporary output files
         
-     Exports:
+    Outputs:
          polygon_output: str <-- Outputted vector polygon(.shp) file name
 
     Returns:
