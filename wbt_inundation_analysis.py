@@ -10,12 +10,12 @@ def InundationExtents(input_raster, output_polygons, threshold):
     Calculates inundation extents based on specific threshold
     
     Inputs:
-    input_raster: raster used for calculation
-    output_polygons: string for polygons outputted from raster to vector polygons calculation
-    threshold: int or float of max threshold value
+        input_raster: str <-- path to raster(.tif) file
+        output_polygons: str <-- name for polygons outputted from raster to vector polygons calculation
+        threshold: int or float <-- max threshold value
     
     Exports:
-    output: Outputted vector polygon file
+        output: str <-- Outputted vector polygon(.shp) file name
     
     Returns:
     None
