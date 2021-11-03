@@ -26,8 +26,8 @@ def intersect(input_vector_file, overlay, output_vector_file):
     Function to return all feature parts that occur in both input layers
 
     Inputs:
-        input_vector_file: str <-- name of input vector(.shp) file
-        overlay: str <-- name of input overlay vector(.shp) file
+        input_vector_file: str <-- path to vector(.shp) file
+        overlay: str <-- path to overlay vector(.shp) file
         output_vector_file: str <-- name of output vector(.shp) file
 
     Outputs:
@@ -39,11 +39,11 @@ def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', inpu
     """Calculates zonal statistics based on an input raster, using raster or polygon zones. 
     
     Inputs:
-        input_raster : str <-- input raster(.tif) file
-        input_zones : str <-- input raster(.tif) or polygon(.shp)
+        input_raster : str <-- path to raster(.tif) file
+        input_zones : str <-- input path to raster(.tif) or polygon(.shp)
         output_raster : str <-- output raster(.tif) file name
-        stat [optional] : str <-- 
-        input_zones_is_raster [optional] : boolean <-- 
+        stat [optional] : str <-- default value is 'mean'
+        input_zones_is_raster [optional] : boolean <-- default value is 'True'
 
     Exports:
         output_raster : raster <-- output raster(.tif) file
@@ -54,41 +54,74 @@ def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', inpu
     """
 
     if input_zones_is_raster:
-        input_zones_raster = input_zones
+        input_zones_raster = input_zones # if statement assigning input_zones to raster variable if already a raster
     else:
-        input_zones_raster = 'temp_input_raster.tif'
-        wbt.vector_polygons_to_raster(input_zones, input_zones_raster)
+        input_zones_raster = 'temp_input_raster.tif' # assigning name to variable before polygon-raster transformation
+        wbt.vector_polygons_to_raster(input_zones, input_zones_raster) # transforming polygon to raster if input_zones is a polygon
     
     wbt.zonal_statistics(i=input_raster, features=input_zones_raster, output=output_raster, stat=stat)
 
     if not input_zones_is_raster:
-        os.remove(os.path.join(wbt.work_dir,input_zones_raster))
+        os.remove(os.path.join(wbt.work_dir,input_zones_raster)) # removing temporary raster file if one had to be created
     
 def distance_from_points(input_points, output_raster):
-    input_raster = 'temp_input_raster.tif'
-    wbt.vector_points_to_raster(input_points,input_raster)
-    wbt.euclidean_distance(input_raster, output_raster)
-    os.remove(os.join.path(wbt.work_dir,input_raster))
+    """
+    Creates new raster showing distances between input points
+
+    Inputs:
+        input_points: str <-- path to input point (.shp) file
+        output_raster: str <-- raster(.tif) file name
+
+    Outputs: 
+        output_raster: raster <-- raster(.tif) file
+
+    Returns:
+        None
+    """
+    input_raster = 'temp_input_raster.tif' # assigning name to variable before being used in functions
+    wbt.vector_points_to_raster(input_points,input_raster) # points to raster transformation
+    wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
+    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
 
 def distance_from_lines(input_lines, output_raster):
-    input_raster = 'temp_input_raster.tif'
-    wbt.vector_points_to_raster(input_lines,input_raster)
-    wbt.euclidean_distance(input_raster, output_raster)
-    os.remove(os.join.path(wbt.work_dir,input_raster))
+    """
+    Creates new raster showing distances between lines
+
+    Inputs: 
+        input_lines: str <-- path to input point(.shp) file
+        output_raster: str <-- raster(.tif) file name
+    """
+    input_raster = 'temp_input_raster.tif'  # assigning name to variable before being used in functions
+    wbt.vector_points_to_raster(input_lines,input_raster) # lines to raster transformation
+    wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
+    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
 
 def distance_from_polygons(input_polygons, output_raster):
-    input_raster = 'temp_input_raster.tif'
-    wbt.vector_points_to_raster(input_polygons,input_raster)
-    wbt.euclidean_distance(input_raster, output_raster)
-    os.remove(os.join.path(wbt.work_dir,input_raster))
+    """
+    Creates new raster showing distances between polygons
+    """
+    input_raster = 'temp_input_raster.tif' # assigning name to variable before being used in functions
+    wbt.vector_points_to_raster(input_polygons,input_raster) # polygons to raster transformation
+    wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
+    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
 
-def distance_from_raster(input_points, output_raster):
-    input_raster = 'temp_input_raster.tif'
-    wbt.vector_points_to_raster(input_points,input_raster)
-    wbt.euclidean_distance(input_raster, output_raster)
-    os.remove(os.join.path(wbt.work_dir,input_raster))
-    
+def distance_from_raster(input_raster, output_raster):
+    """
+    Creates new raster showing distances within raster
+    """
+    wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on input raster
+
 def hotspots_from_points(input_points, output_raster, filterx=11, filtery=11, k=5):
+    """
+    Creates new raster showing hotspots from input point shapefile
+
+    Inputs:
+        input_points: str <-- path to input point(.shp) file
+        output_raster: str <-- name of output raster(.tif) file
+        filterx [optional] : int <-- size of kernel in x-direction, default value is '11'
+        filtery [optional] : int <-- size of kernel in y-direction, default value is '11'
+        k [optional] : int <-- number of nearest-valued neighbours to use, default value is '5'
+    """
     input_raster = 'temp_hotspots_from_points.tif'
     wbt.vector_points_to_raster(input_points, input_raster)
     wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k)
