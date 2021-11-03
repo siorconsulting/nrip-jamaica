@@ -12,13 +12,13 @@ def GeomorphologicalFluvialFloodHazardAreas(dem, output_prefix, facc_threshold =
     Calculates Flood hazard areas from raster and outputs these areas as polygons
     
     Inputs:
-    dem: str <-- path to raster(.tif) file
-    output_prefix: str <-- site specific name appended to each output file name
-    facc_threshold: int or float <-- flow accumulation threshold defaulted at 1000
-    buffer_distance: int or float <-- distance used to buffer flow accumulation raster
+        dem: str <-- path to raster(.tif) file
+        output_prefix: str <-- site specific name appended to each output file name
+        facc_threshold: int or float <-- flow accumulation threshold defaulted at 1000
+        buffer_distance: int or float <-- distance used to buffer flow accumulation raster
     
     Exports:
-    out_facc_setnull_buffer_polygon: str <-- output polygon that represents flood hazard areas
+        out_facc_setnull_buffer_polygon: str <-- output polygon(.shp) that represents flood hazard areas
     
     Returns:
     None
@@ -50,11 +50,13 @@ def SteepAreas(dem, threshold, output_prefix, delete_temp_outputs=True):
     """Create mask of areas with slope equal or higher than a threshold, and export as raster and vector files.
     
     Inputs:
-        dem : raster
-        threshold : float
-        output_prefix: str
-        working_dir [optional] : str
-        delete_temp_outputs [optional] : boolean
+        dem : str <-- path to raster(.tif) file
+        threshold : int or float <-- threshold of slope that defines mask
+        output_prefix: str <-- site specific name appended to each output file name
+        delete_temp_outputs [optional] : boolean <-- if True will delete temporary output files
+        
+     Exports:
+         polygon_output: str <-- Outputted vector polygon(.shp) file name
 
     Returns:
         None 
