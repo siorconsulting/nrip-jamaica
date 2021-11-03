@@ -4,7 +4,7 @@ from wbt_utils import *
 wbt = wbt_setup()
 
 __all__ = ['SteepAreas',
-           'GeomorphologicalFluvialFloodHazardAreas', # not tested
+           'GeomorphologicalFluvialFloodHazardAreas',
            ]
 
 def GeomorphologicalFluvialFloodHazardAreas(dem, output_prefix, buffer_distance, facc_threshold = 1000, remove_temp_outputs = True):
