@@ -7,7 +7,7 @@ __all__ = ['SteepAreas',
            'GeomorphologicalFluvialFloodHazardAreas', # not tested
            ]
 
-def GeomorphologicalFluvialFloodHazardAreas(dem, output_prefix, facc_threshold = 1000, buffer_distance = 25, remove_temp_outputs = True):
+def GeomorphologicalFluvialFloodHazardAreas(dem, output_prefix, facc_threshold = 1000, buffer_distance, remove_temp_outputs = True):
     """
     Calculates Flood hazard areas from raster and outputs these areas as polygons
     
