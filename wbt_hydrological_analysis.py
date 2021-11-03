@@ -1,16 +1,27 @@
 import os 
 from wbt_utils import * 
 
-__all__ = ['HydrologicalRouting']
+wbt = wbt_setup()
 
-def HydrologicalRouting(dem, output_prefix, working_dir, facc_threshold=1000, remove_temp_outputs=True):
+__all__ = ['HydrologicalRouting']
+# Could  you explain the function __all__ again?
+
+def ClippingByElevation(dem, output_clipped_dem):
+    wbt.conditional_evaluation(i=dem, 
+                                output=output_clipped_dem, 
+                                statement="value > 0", 
+                                true=dem, 
+                                false="null")
+
+def HydrologicalRouting(dem, output_prefix, facc_threshold=1000, remove_temp_outputs=True):
+# not really understand facc_threshold but remove_temp_outputs will not store the temp outputs within notebook, right?   facc is flow accummulation threshold and temp outputs are define below....I've answered my own question :)
+# if we don't define the working_dir, it will print the output in it's default repo location??
 
     """Hydrolgical anaysis routine. 
     
     Inputs:
         dem : 
         output_prefix : 
-        working_dir :
         facc_threshold : 
         remove_temp_ouputs : 
 
@@ -42,11 +53,10 @@ def HydrologicalRouting(dem, output_prefix, working_dir, facc_threshold=1000, re
     out_conditional = f"{output_prefix}_fill_extent.tif"
     out_conditional_polygon = f"{output_prefix}_fill_extent_polygon.shp"
 
-    wbt = wbt_setup(working_dir=working_dir)
     wbt.fill_depressions_planchon_and_darboux(dem, out_fill)
     wbt.d8_pointer(out_fill, out_fdir, esri_pntr=True)
     wbt.d8_flow_accumulation(out_fdir, out_facc, pntr=True, esri_pntr=True)
-    wbt.conditional_evaluation(i=out_facc, output=out_facc_setnull, statement=f"value >= {facc_threshold}", true=1, false='null')
+    wbt.conditional_evaluation(i=out_facc, output=out_facc_setnull, statement=f"value >= {facc_threshold}", true=1, false='null') 
     wbt.raster_to_vector_lines(i=out_facc_setnull, output=out_facc_setnull_lines)
     wbt.basins(out_fdir, out_basins, esri_pntr=True)
     wbt.raster_to_vector_polygons(i=out_basins, output=out_basins_polygon)
@@ -56,9 +66,13 @@ def HydrologicalRouting(dem, output_prefix, working_dir, facc_threshold=1000, re
     wbt.raster_to_vector_polygons(i=out_conditional, output=out_conditional_polygon)
 
     if remove_temp_outputs:
-        os.remove(os.path.join(working_dir,out_fill))
-        os.remove(os.path.join(working_dir,out_fdir))
-        os.remove(os.path.join(working_dir,out_facc))
-        os.remove(os.path.join(working_dir,out_facc_setnull))
-        os.remove(os.path.join(working_dir,out_basins))
-        os.remove(os.path.join(working_dir,out_conditional))
+        os.remove(os.path.join(wbt.work_dir,out_fill))
+        os.remove(os.path.join(wbt.work_dir,out_fdir))
+        os.remove(os.path.join(wbt.work_dir,out_facc))
+        os.remove(os.path.join(wbt.work_dir,out_facc_setnull))
+        os.remove(os.path.join(wbt.work_dir,out_basins))
+        os.remove(os.path.join(wbt.work_dir,out_conditional))
+
+# went through line by line for the code, mainly have a couple questions related to syntax
+
+
