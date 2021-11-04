@@ -18,7 +18,7 @@ __all__ = ['intersect', # NOT TESTED
            'hotspots_from_polygons', # NOT TESTED
            'hotspots_from_raster', # NOT TESTED
            'interpolate_points', # NOT TESTED 
-           'SummarizeWithin',
+           'SummarizeWithin', # NOT TESTED
           ]
 
 def intersect(input_vector_file, overlay, output_vector_file):
@@ -81,7 +81,7 @@ def distance_from_points(input_points, output_raster):
     input_raster = 'temp_input_raster.tif' # assigning file name
     wbt.vector_points_to_raster(input_points,input_raster) # points to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
-    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
+    os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
 
 def distance_from_lines(input_lines, output_raster):
     """
@@ -94,7 +94,7 @@ def distance_from_lines(input_lines, output_raster):
     input_raster = 'temp_input_raster.tif'  # assigning file name
     wbt.vector_points_to_raster(input_lines,input_raster) # lines to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
-    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
+    os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
 
 def distance_from_polygons(input_polygons, output_raster):
     """
@@ -103,7 +103,7 @@ def distance_from_polygons(input_polygons, output_raster):
     input_raster = 'temp_input_raster.tif' # assigning file name
     wbt.vector_points_to_raster(input_polygons,input_raster) # polygons to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
-    os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
+    os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
 
 def distance_from_raster(input_raster, output_raster):
     """
