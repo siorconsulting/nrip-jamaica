@@ -56,7 +56,7 @@ def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', inpu
     if input_zones_is_raster:
         input_zones_raster = input_zones # if statement assigning input_zones to raster variable if already a raster
     else:
-        input_zones_raster = 'temp_input_raster.tif' # assigning name to variable before polygon-raster transformation
+        input_zones_raster = 'temp_input_raster.tif' # assigning file name
         wbt.vector_polygons_to_raster(input_zones, input_zones_raster) # transforming polygon to raster if input_zones is a polygon
     
     wbt.zonal_statistics(i=input_raster, features=input_zones_raster, output=output_raster, stat=stat)
@@ -78,7 +78,7 @@ def distance_from_points(input_points, output_raster):
     Returns:
         None
     """
-    input_raster = 'temp_input_raster.tif' # assigning name to variable before being used in functions
+    input_raster = 'temp_input_raster.tif' # assigning file name
     wbt.vector_points_to_raster(input_points,input_raster) # points to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
     os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
@@ -91,7 +91,7 @@ def distance_from_lines(input_lines, output_raster):
         input_lines: str <-- path to input point(.shp) file
         output_raster: str <-- raster(.tif) file name
     """
-    input_raster = 'temp_input_raster.tif'  # assigning name to variable before being used in functions
+    input_raster = 'temp_input_raster.tif'  # assigning file name
     wbt.vector_points_to_raster(input_lines,input_raster) # lines to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
     os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
@@ -100,7 +100,7 @@ def distance_from_polygons(input_polygons, output_raster):
     """
     Creates new raster showing distances between polygons
     """
-    input_raster = 'temp_input_raster.tif' # assigning name to variable before being used in functions
+    input_raster = 'temp_input_raster.tif' # assigning file name
     wbt.vector_points_to_raster(input_polygons,input_raster) # polygons to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
     os.remove(os.join.path(wbt.work_dir,input_raster)) # removes temporary raster file
@@ -113,7 +113,7 @@ def distance_from_raster(input_raster, output_raster):
 
 def hotspots_from_points(input_points, output_raster, filterx=11, filtery=11, k=5):
     """
-    Creates new raster showing hotspots from input point shapefile
+    Creates hotspot raster from input point shapefile
 
     Inputs:
         input_points: str <-- path to input point(.shp) file
@@ -121,33 +121,113 @@ def hotspots_from_points(input_points, output_raster, filterx=11, filtery=11, k=
         filterx [optional] : int <-- size of kernel in x-direction, default value is '11'
         filtery [optional] : int <-- size of kernel in y-direction, default value is '11'
         k [optional] : int <-- number of nearest-valued neighbours to use, default value is '5'
+
+    Outputs:
+        output_raster: raster <-- output raster(.tif) file
+
+    Returns:
+        None
     """
-    input_raster = 'temp_hotspots_from_points.tif'
-    wbt.vector_points_to_raster(input_points, input_raster)
-    wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k)
-    os.remove(os.path.join(wbt.work_dir, input_raster))
+    input_raster = 'temp_hotspots_from_points.tif' # assigning temporary file name
+    wbt.vector_points_to_raster(input_points, input_raster) # points to raster transformation
+    wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k) 
+    os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary raster file
 
 def hotspots_from_lines(input_lines, output_raster, filterx=11, filtery=11, k=5):
-    input_raster = 'temp_hotspots_from_lines.tif'
-    wbt.vector_lines_to_raster(input_lines, input_raster)
+    """
+    Creates hotspot raster from input line shapefile
+
+    Inputs:
+        input lines: str <-- path to input line(.shp) file
+        output_raster: str <-- raster(.tif) file name
+        filterx [optional] : int <-- size of kernel in x-direction, default value is '11'
+        filtery [optional] : int <-- size of kernel in y-direction, default value is '11'
+        k [optional] : int <-- number of nearest-valued neighbours to use, default value is '5'
+
+    Outputs:
+        output_raster: raster <-- raster(.tif) file 
+
+    Returns:
+        None
+    """
+    input_raster = 'temp_hotspots_from_lines.tif' # assigning temporary file name
+    wbt.vector_lines_to_raster(input_lines, input_raster) # lines to raster transformation
     wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k)
-    os.remove(os.path.join(wbt.work_dir, input_raster))
+    os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary file
 
 def hotspots_from_polygons(input_polygons, output_raster, filterx=11, filtery=11, k=5):
-    input_raster = 'temp_hotspots_from_polygons.tif'
-    wbt.vector_lines_to_raster(input_polygons, input_raster)
+    """
+    Creates hotspot raster from input polygon shapefile
+
+    Inputs:
+        input polygons: str <-- path to input line(.shp) file
+        output_raster: str <-- raster(.tif) file name
+        filterx [optional] : int <-- size of kernel in x-direction, default value is '11'
+        filtery [optional] : int <-- size of kernel in y-direction, default value is '11'
+        k [optional] : int <-- number of nearest-valued neighbours to use, default value is '5'
+
+    Output:
+        output_raster: raster <-- raster(.tif) file
+    
+    Returns:
+    None
+    """
+    input_raster = 'temp_hotspots_from_polygons.tif' # assigning temporary file name
+    wbt.vector_polygons_to_raster(input_polygons, input_raster) # polygons to raster transformation
     wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k)
-    os.remove(os.path.join(wbt.work_dir, input_raster))
+    os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary file
 
 def hotspots_from_raster(input_raster, output_raster, filterx=11, filtery=11, k=5):
+    """
+    Creates hotspot raster from input raster file
+
+    Inputs:
+        input polygons: str <-- path to input line(.shp) file
+        output_raster: str <-- raster(.tif) file name
+        filterx [optional] : int <-- size of kernel in x-direction, default value is '11'
+        filtery [optional] : int <-- size of kernel in y-direction, default value is '11'
+        k [optional] : int <-- number of nearest-valued neighbours to use, default value is '5'
+    
+    Outputs:
+        output_raster: raster <-- raster(.tif) file
+    
+    Returns:
+        None
+    """
     wbt.k_nearest_mean_filter(input_raster, output_raster, filterx=filterx, filtery=filtery, k=k)
 
 def interpolate_points(input_points, output_raster):
-    wbt.radial_basis_function_interpolation(i=input_points, output=output_raster)
+    """
+    Intepolates points into a raster surface 
+
+    Inputs:
+        input_points: str <-- path to input point shapefile
+        output_raster : str <-- name of output raster(.tif) file 
+
+    Outputs:
+        output_raster: raster <-- output raster(.tif) file
+
+    Returns:
+        None
+    """
+    wbt.radial_basis_function_interpolation(i=input_points, output=output_raster) # interpolation function
 
 def SummarizeWithin(input_vector, feature_polygons, output_polygon, field_to_summarize, aggfunc='mean'):
-    input_vector = gpd.read_file(input_vector)
-    feature_polygons = gpd.read_file(feature_polygons)
-    input_vector_join = input_vector[field_to_summarize].join(other=feature_polygons,rsuffix='_polygon')
-    input_vector_join.dissolve(by='FID_polygon', aggfunc=aggfunc)
-    input_vector_join.to_file(os.path.join(wbt.work_dir, output_polygon))
+    """
+    Summarizies vector data relative to exisiting polygons
+
+    Inputs:
+        input_vector: str <-- path to input vector(.shp) file. Can be point/lines/polygons
+        feature_polygons: str <-- path to input polygons(.shp)
+        output_polygon: str <-- name of output polygon(.shp) file
+        field_to_summarize: str <-- name of field to summarize
+        aggfunc [optional]: str: aggregation function, default is 'mean'
+
+    Outputs:
+        output_polygon: shapefile <-- polygon(.shp) file
+    """
+    input_vector = gpd.read_file(input_vector) # geopandas read vector
+    feature_polygons = gpd.read_file(feature_polygons) # geopandas polygons 
+    input_vector_join = input_vector[field_to_summarize].join(other=feature_polygons,rsuffix='_polygon') # attribute join on both inputs
+    input_vector_join.dissolve(by='FID_polygon', aggfunc=aggfunc) # dissolve geometries
+    input_vector_join.to_file(os.path.join(wbt.work_dir, output_polygon)) # save as file ouput_polygons
