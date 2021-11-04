@@ -214,7 +214,7 @@ def interpolate_points(input_points, output_raster):
 
 def SummarizeWithin(input_vector, feature_polygons, output_polygon, field_to_summarize, aggfunc='mean'):
     """
-    Summarizies vector data relative to exisiting polygons
+    Summarizies vector data relative to existing polygons
 
     Inputs:
         input_vector: str <-- path to input vector(.shp) file. Can be point/lines/polygons
