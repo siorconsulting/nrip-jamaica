@@ -284,6 +284,7 @@ def hotspots_from_raster(input_raster, output_raster,sigma = 10):
 
     wbt.convert_nodata_to_zero(input_raster, temp_input_raster_zeros)
     wbt.gaussian_filter(temp_input_raster_zeros, output_raster, sigma=sigma)
+    os.remove(os.path.join(wbt.work_dir,temp_input_raster_zeros))
 
 def interpolate_points(input_points, field, output_raster):
     """
