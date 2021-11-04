@@ -92,7 +92,7 @@ def distance_from_lines(input_lines, output_raster):
         output_raster: str <-- raster(.tif) file name
     """
     input_raster = 'temp_input_raster.tif'  # assigning file name
-    wbt.vector_points_to_raster(input_lines,input_raster) # lines to raster transformation
+    wbt.vector_lines_to_raster(input_lines,input_raster) # lines to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
     os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
 
@@ -101,7 +101,7 @@ def distance_from_polygons(input_polygons, output_raster):
     Creates new raster showing distances between polygons
     """
     input_raster = 'temp_input_raster.tif' # assigning file name
-    wbt.vector_points_to_raster(input_polygons,input_raster) # polygons to raster transformation
+    wbt.vector_polygons_to_raster(input_polygons,input_raster) # polygons to raster transformation
     wbt.euclidean_distance(input_raster, output_raster) # euclidean distance calculated on created raster
     os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
 
@@ -222,7 +222,7 @@ def SummarizeWithin(input_vector, feature_polygons, output_polygon, field_to_sum
         output_polygon: str <-- name of output polygon(.shp) file
         field_to_summarize: str <-- name of field to summarize
         aggfunc [optional]: str: aggregation function, default is 'mean'
-
+        
     Outputs:
         output_polygon: shapefile <-- polygon(.shp) file
     """
