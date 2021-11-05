@@ -34,6 +34,7 @@ def intersect(input_vector_file, overlay, output_vector_file):
         output_vector_file: shapefile  <-- output vector shapefile
     """
     wbt.intersect(input_vector_file, overlay, output_vector_file)
+    os.chdir(wbt.work_dir)
 
 def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', input_zones_is_raster=True):
     """Calculates zonal statistics based on an input raster, using raster or polygon zones. 
@@ -63,6 +64,7 @@ def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', inpu
 
     if not input_zones_is_raster:
         os.remove(os.path.join(wbt.work_dir,input_zones_raster)) # removing temporary raster file if one had to be created
+    os.chdir(wbt.work_dir)
     
 def distance_from_points(input_points, output_raster):
     """
