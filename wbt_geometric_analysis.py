@@ -9,14 +9,14 @@ wbt = wbt_setup()
 
 __all__ = ['intersect', # NOT TESTED
            'zonal_statistics', # NOT TESTED
-           'distance_from_points', # NOT TESTED
-           'distance_from_lines', # NOT TESTED
-           'distance_from_polygons', # NOT TESTED
-           'distance_from_raster', # NOT TESTED
-           'hotspots_from_points', # NOT TESTED
-           'hotspots_from_lines', # NOT TESTED
-           'hotspots_from_polygons', # NOT TESTED
-           'hotspots_from_raster', # NOT TESTED
+           'distance_from_points', # TESTED
+           'distance_from_lines', # TESTED
+           'distance_from_polygons', # TESTED
+           'distance_from_raster', # TESTED
+           'hotspots_from_points', # TESTED
+           'hotspots_from_lines', # TESTED
+           'hotspots_from_polygons', # TESTED
+           'hotspots_from_raster', # TESTED
            'interpolate_points', # NOT TESTED 
            'SummarizeWithin', # NOT TESTED
           ]
@@ -152,6 +152,7 @@ def distance_from_polygons(input_polygons, output_raster):
     os.remove(os.path.join(wbt.work_dir,input_raster)) # removes temporary raster file
     os.remove(os.path.join(wbt.work_dir,temp_input_polygons))
     os.remove(os.path.join(wbt.work_dir,temp_input_raster_zeros))
+    os.chdir(wbt.work_dir)
 
 
 def distance_from_raster(input_raster, output_raster):
@@ -169,6 +170,7 @@ def distance_from_raster(input_raster, output_raster):
     wbt.convert_nodata_to_zero(input_raster, temp_input_raster_zeros)
     wbt.euclidean_distance(temp_input_raster_zeros, output_raster) # euclidean distance calculated on input raster
     os.remove(os.path.join(wbt.work_dir, temp_input_raster_zeros))
+    os.chdir(wbt.work_dir)
 
 def hotspots_from_points(input_points, output_raster, sigma = 100):
     """
@@ -201,6 +203,7 @@ def hotspots_from_points(input_points, output_raster, sigma = 100):
     os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary raster file
     os.remove(os.path.join(wbt.work_dir, temp_input_raster_zeros))
     os.remove(os.path.join(wbt.work_dir, temp_input_points))
+    os.chdir(wbt.work_dir)
 
 def hotspots_from_lines(input_lines, output_raster, sigma =10):
     """
@@ -232,6 +235,7 @@ def hotspots_from_lines(input_lines, output_raster, sigma =10):
     os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary raster file
     os.remove(os.path.join(wbt.work_dir, temp_input_raster_zeros))
     os.remove(os.path.join(wbt.work_dir, temp_input_lines)) # remove temporary file
+    os.chdir(wbt.work_dir)
 
 
 def hotspots_from_polygons(input_polygons, output_raster,sigma = 10):
@@ -263,6 +267,7 @@ def hotspots_from_polygons(input_polygons, output_raster,sigma = 10):
     os.remove(os.path.join(wbt.work_dir, input_raster)) # remove temporary file
     os.remove(os.path.join(wbt.work_dir, temp_input_polygons)) 
     os.remove(os.path.join(wbt.work_dir, temp_input_raster_zeros))
+    os.chdir(wbt.work_dir)
 
 
 def hotspots_from_raster(input_raster, output_raster,sigma = 10):
@@ -285,6 +290,7 @@ def hotspots_from_raster(input_raster, output_raster,sigma = 10):
     wbt.convert_nodata_to_zero(input_raster, temp_input_raster_zeros)
     wbt.gaussian_filter(temp_input_raster_zeros, output_raster, sigma=sigma)
     os.remove(os.path.join(wbt.work_dir,temp_input_raster_zeros))
+    os.chdir(wbt.work_dir)
 
 def interpolate_points(input_points, field, output_raster):
     """
