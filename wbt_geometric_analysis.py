@@ -320,7 +320,8 @@ def SummarizeWithin(input_vector, feature_polygons, output_polygon, field_to_sum
         None
     """
     input_vector = gpd.read_file(input_vector) # geopandas read vector
-    feature_polygons = gpd.read_file(feature_polygons) # geopandas polygons 
-    input_vector_join = input_vector[field_to_summarize].join(other=feature_polygons,rsuffix='_polygon') # attribute join on both inputs
+    feature_polygons = gpd.read_file(feature_polygons) # geopandas polygons
+    input_vector_gdf = input_vector[field_to_summarize].to_frame() 
+    input_vector_join = input_vector_gdf.join(other=feature_polygons,rsuffix='_polygon') # attribute join on both inputs
     input_vector_join.dissolve(by='FID_polygon', aggfunc=aggfunc) # dissolve geometries
     input_vector_join.to_file(os.path.join(wbt.work_dir, output_polygon)) # save as file ouput_polygons
