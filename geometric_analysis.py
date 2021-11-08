@@ -107,14 +107,17 @@ def buffer_vector(in_features, out_feature_class, buffer_distance_or_field):
 
     arcpy.analysis.Buffer(in_features, out_feature_class, buffer_distance_or_field)
 
-def intersection():
+def intersection(in_features, out_feature_class):
     """Intersect
         
     Inputs:
+            in_features : str
+            out_feature_class : str
     
     Return: 
-        
+            None
     """
+    arcpy.Intersect_analysis(in_features, out_feature_class)
     
 
 if __name__ == '__main__':

@@ -75,11 +75,21 @@ def calculate_flow_network(inFlowAccumulation, flow_acc_threshold):
 
 def complete_hydrological_routine(inSurfaceRaster, gdb_folder_path, gdb_name, out_filename_root=None, flow_acc_threshold=1000):
     """ Hydrological routing routine, which generates the following:
-        - Fill raster
-        - Flow direction raster
-        - Flow accumulation raster
-        - Flow network polygons
-        - Fill zones polygons
+
+    Inputs:
+        inSurfaceRaster : raster
+
+    Outputs:
+        outFill : raster
+        outFlowDirection: raster
+        outFlowAccumulation : raster
+        outFlowAccumulationNetwork : raster
+        outBasins : raster
+        outFillDiff: raster
+        outFillDiff : vector <-- output fill difference polygon
+        outFlowAccumulationNetwork : vector <-- output flow accumulation network polygon
+        outBasins : vector <-- output basins polygon
+
     """
     
     # Calculate fill 
