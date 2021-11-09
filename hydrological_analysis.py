@@ -45,7 +45,7 @@ def calculate_flow_direction(inFillRaster):
 
     
 def calculate_flow_accumulation(inFlowDirection):
-    """Calculates flow direction raster.
+    """Calculates flow accumulation raster.
     
     Inputs:
         inFlowDirection : raster 
@@ -59,7 +59,7 @@ def calculate_flow_accumulation(inFlowDirection):
 
 
 def calculate_flow_network(inFlowAccumulation, flow_acc_threshold):
-    """Calculates flow direction raster.
+    """Calculates flow network raster.
     
     Inputs:
         inFlowAccumulation : raster 

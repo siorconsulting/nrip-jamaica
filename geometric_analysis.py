@@ -66,11 +66,16 @@ def calculate_hotspots(in_features, masking_polygon, out_raster_path, population
     """Calculates hotspots based on a layer of points using a kernel function to fit a smoothly tapered surface.
     
     Inputs:
-           in_features :
-           population_field : 
+           in_features : str
+           masking_polygon : str
+           out_raster_path : str
+           population_field[optional] : str <-- field used for kernel density calculation, default is none
     
+    Outputs: 
+           out_raster_path : raster
+   
     Return: 
-        
+           None
     """
            
     outKernelDensity = KernelDensity(in_features, population_field, cell_size = 500)

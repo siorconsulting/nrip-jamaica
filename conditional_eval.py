@@ -23,7 +23,7 @@ def set_null_below(inRaster, th):
   return outRaster
 
 def set_null_above(inRaster, th):
-  """ Creates constant valued raster based on SetNull operator above thredhold.
+  """ Creates constant valued raster based on SetNull operator above threshold.
   
   Input:
       inRaster : raster
