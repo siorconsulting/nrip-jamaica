@@ -5,7 +5,7 @@ import geopandas as gpd
 # import whitebox
 # wbt = whitebox.WhiteboxTools()
 
-wbt = wbt_setup() 
+wbt = wbt_setup(verbose=True) 
 
 __all__ = ['intersect', # NOT TESTED
            'zonal_statistics', # NOT TESTED
@@ -36,13 +36,14 @@ def intersect(input_vector_file, overlay, output_vector_file):
     wbt.intersect(input_vector_file, overlay, output_vector_file)
     os.chdir(wbt.work_dir)
 
-def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', input_zones_is_raster=True):
+def zonal_statistics(input_raster, input_zones, output_raster, field='FID', stat='mean', input_zones_is_raster=True):
     """Calculates zonal statistics based on an input raster, using raster or polygon zones. 
     
     Inputs:
         input_raster : str <-- path to raster(.tif) file
         input_zones : str <-- input path to raster(.tif) or polygon(.shp)
         output_raster : str <-- output raster(.tif) file name
+        field [optional] : str <-- deafult value is 'FID'
         stat [optional] : str <-- default value is 'mean'
         input_zones_is_raster [optional] : boolean <-- default value is 'True'
 
@@ -58,7 +59,11 @@ def zonal_statistics(input_raster, input_zones, output_raster, stat='mean', inpu
         input_zones_raster = input_zones # if statement assigning input_zones to raster variable if already a raster
     else:
         input_zones_raster = 'temp_input_raster.tif' # assigning file name
-        wbt.vector_polygons_to_raster(input_zones, input_zones_raster) # transforming polygon to raster if input_zones is a polygon
+        temp_input_zones = 'temp_input_zones.shp'
+        gdf = gpd.read_file(input_zones)
+        gdf['FID'] = gdf.index
+        gdf.to_file(temp_input_zones)
+        wbt.vector_polygons_to_raster(temp_input_zones, input_zones_raster, field=field, nodata=False) # transforming polygon to raster if input_zones is a polygon
     
     wbt.zonal_statistics(i=input_raster, features=input_zones_raster, output=output_raster, stat=stat)
 
