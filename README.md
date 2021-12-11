@@ -21,7 +21,7 @@ Install required python packages:
 
     pip install -r requirements.txt
 
-"""## Available Toolsets  
+## Available Toolsets  
 
 > WORK IN PROGRESS
 
@@ -48,4 +48,4 @@ Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop
 
 ### Example notebook on Google Colab
 
-Link to Colab notebook: https://colab.research.google.com/drive/1GjPS-aYbshqJlh5eYuFvNsh488_z2FFQ?usp=sharing"""
+Link to Colab notebook: https://colab.research.google.com/drive/1GjPS-aYbshqJlh5eYuFvNsh488_z2FFQ?usp=sharing
