@@ -18,6 +18,8 @@ Open-source version: https://github.com/siorconsulting/nrip-jamaica-open-source
 
 Licensed (ArcGIS) version: https://github.com/siorconsulting/nrip-jamaica-arcgis
 
+<!-- 
+
 ## Setup and Installation
 
 Clone or download this repository from
@@ -28,6 +30,8 @@ Clone or download this repository from
 Install required python packages:
 
     pip install -r requirements.txt
+
+-->
 
 ## Available Toolsets  
 
