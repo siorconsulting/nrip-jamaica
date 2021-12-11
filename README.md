@@ -12,12 +12,17 @@ The NRIP is conceptualized as a platform that provides users with the ability to
 
 Sior Consulting Ltd. (https://siorconsulting.com/) supported the development of the platform by undertaking data manipulation, particularly LiDAR-driven data derivation for coastal, hydrological and geomorphological hazards in three study locations in Jamaica, and developing risk modelling toolsets (as provided here) and case studies to showcase the capabilities and outputs of the analysis tools.
 
-## Available Toolsets
+## Versions
 
-Open-source version: https://github.com/siorconsulting/nrip-jamaica-open-source
+The NRIP Risk Analysis toolset is available in two analogous versions:
 
-Licensed (ArcGIS) version: https://github.com/siorconsulting/nrip-jamaica-arcgis
+* Open-source version: https://github.com/siorconsulting/nrip-jamaica-open-source
 
+* Licensed (ArcGIS) version: https://github.com/siorconsulting/nrip-jamaica-arcgis
+
+<!--
+Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop / ArcGIS Pro basic license. Some tools require the Data Management and Spatial Analyst extensions.
+-->
 <!-- 
 
 ## Setup and Installation
@@ -33,15 +38,15 @@ Install required python packages:
 
 -->
 
-## Available Toolsets  
+## Toolsets  
 
-> WORK IN PROGRESS
+(to be updated)
 
 Toolsets include: 
 - Geometric analysis toolset
-  - Hotspot (density) analysis tool 
-  - Proximity analysis tool
-  - Summarise-within tool
+  - Hotspot (density) analysis
+  - Proximity analysis
+  - Zonal (summarise-within) analysis
 - Hydrological analysis toolset
   - Fill calculator
   - Flow direction calculator
@@ -55,8 +60,6 @@ Toolsets include:
 - Geomorphological flood risk toolset
   - Buffer flow network
   - Slope masking
-
-Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop / ArcGIS Pro basic license. Some tools require the Data Management and Spatial Analyst extensions.
 
 ### Example notebook on Google Colab
 
