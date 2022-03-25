@@ -22,9 +22,9 @@ The NRIP Risk Analysis toolset is available in two analogous versions:
 
 <!--
 Toolsets are currently implemented using arcpy, which requires an ArcGIS Desktop / ArcGIS Pro basic license. Some tools require the Data Management and Spatial Analyst extensions.
--->
 <!-- 
 
+-->
 ## Setup and Installation
 
 Clone or download this repository from
@@ -37,7 +37,6 @@ Install required python packages:
     pip install -r requirements.txt
 
 -->
-
 ## Toolsets  
 
 (to be updated)
@@ -61,6 +60,16 @@ Toolsets include:
   - Buffer flow network
   - Slope masking
 
-### Example notebook on Google Colab
+-->
 
+## NRIP Analyst Training Program - Example notebooks on Gradient.run
+
+- Link to Session 2: https://console.paperspace.com/te1mxcp78/notebook/r3hcpm3u8smht7a?file=nrip-training-session-2.ipynb
+- Link to Session 3: https://console.paperspace.com/te1mxcp78/notebook/r3hcpm3u8smht7a?file=nrip-training-session-3.ipynb
+- Link to Session 4: https://console.paperspace.com/te1mxcp78/notebook/r3hcpm3u8smht7a?file=nrip-training-session-4.ipynb
+- Link to Session 5: https://console.paperspace.com/te1mxcp78/notebook/r3hcpm3u8smht7a?file=nrip-training-session-5.ipynb
+
+<!--
+### Example notebook on Google Colab
 Link to Colab notebook: https://colab.research.google.com/drive/1GjPS-aYbshqJlh5eYuFvNsh488_z2FFQ?usp=sharing
+<!-- 
